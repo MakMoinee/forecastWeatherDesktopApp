@@ -53,7 +53,7 @@ Partial Class frmMain
         btnLogout.Cursor = Cursors.Hand
         btnLogout.FlatStyle = FlatStyle.Popup
         btnLogout.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnLogout.Location = New Point(22, 425)
+        btnLogout.Location = New Point(22, 345)
         btnLogout.Name = "btnLogout"
         btnLogout.Size = New Size(195, 59)
         btnLogout.TabIndex = 4
@@ -66,7 +66,7 @@ Partial Class frmMain
         Button3.Cursor = Cursors.Hand
         Button3.FlatStyle = FlatStyle.Popup
         Button3.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Button3.Location = New Point(22, 344)
+        Button3.Location = New Point(22, 264)
         Button3.Name = "Button3"
         Button3.Size = New Size(195, 59)
         Button3.TabIndex = 3
@@ -85,6 +85,7 @@ Partial Class frmMain
         Button2.TabIndex = 2
         Button2.Text = "Update"
         Button2.UseVisualStyleBackColor = False
+        Button2.Visible = False
         ' 
         ' Button1
         ' 

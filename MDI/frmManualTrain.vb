@@ -136,6 +136,7 @@ Public Class frmManualTrain
 
         Try
             Using client As New HttpClient()
+                client.Timeout = TimeSpan.FromMinutes(5)
                 ' Make the HTTP GET request
                 Dim response As HttpResponseMessage = Await client.GetAsync(apiUrl)
 
@@ -177,6 +178,7 @@ Public Class frmManualTrain
 
         Try
             Using client As New HttpClient()
+                client.Timeout = TimeSpan.FromMinutes(5)
                 ' Make the HTTP GET request
                 Dim response As HttpResponseMessage = Await client.GetAsync(apiUrl)
 

@@ -112,6 +112,7 @@ Public Class frmManualForecast
         Try
             ' Create an instance of HttpClient
             Using client As New HttpClient()
+                client.Timeout = TimeSpan.FromMinutes(5)
                 ' Create a MultipartFormDataContent object
                 Using form As New MultipartFormDataContent()
                     ' Read the file content
