@@ -30,7 +30,6 @@ Partial Class frmManualForecast
         btnUpload = New Button()
         Label1 = New Label()
         Column1 = New DataGridViewTextBoxColumn()
-        Column3 = New DataGridViewComboBoxColumn()
         Column4 = New DataGridViewComboBoxColumn()
         Column5 = New DataGridViewComboBoxColumn()
         Column6 = New DataGridViewTextBoxColumn()
@@ -64,7 +63,7 @@ Partial Class frmManualForecast
         DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
         dgData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         dgData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgData.Columns.AddRange(New DataGridViewColumn() {Column1, Column3, Column4, Column5, Column6, Column7, Column8, Column9})
+        dgData.Columns.AddRange(New DataGridViewColumn() {Column1, Column4, Column5, Column6, Column7, Column8, Column9})
         dgData.Location = New Point(4, 89)
         dgData.Name = "dgData"
         dgData.RowHeadersVisible = False
@@ -106,14 +105,6 @@ Partial Class frmManualForecast
         ' 
         Column1.HeaderText = "Date (MM/DD/YYYY)"
         Column1.Name = "Column1"
-        ' 
-        ' Column3
-        ' 
-        Column3.HeaderText = "Day"
-        Column3.Items.AddRange(New Object() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"})
-        Column3.Name = "Column3"
-        Column3.Resizable = DataGridViewTriState.True
-        Column3.SortMode = DataGridViewColumnSortMode.Automatic
         ' 
         ' Column4
         ' 
@@ -178,7 +169,6 @@ Partial Class frmManualForecast
     Friend WithEvents btnUpload As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewComboBoxColumn
     Friend WithEvents Column4 As DataGridViewComboBoxColumn
     Friend WithEvents Column5 As DataGridViewComboBoxColumn
     Friend WithEvents Column6 As DataGridViewTextBoxColumn

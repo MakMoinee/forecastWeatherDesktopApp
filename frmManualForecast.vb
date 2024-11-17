@@ -47,7 +47,12 @@ Public Class frmManualForecast
             ' Add the header row
             Dim headerColumns As New List(Of String)()
             For Each column As DataGridViewColumn In dgData.Columns
-                headerColumns.Add(column.HeaderText)
+                If column.HeaderText.Contains("Date") Then
+                    headerColumns.Add("Date")
+                Else
+                    headerColumns.Add(column.HeaderText)
+                End If
+
             Next
             sb.AppendLine(String.Join(",", headerColumns))
 
