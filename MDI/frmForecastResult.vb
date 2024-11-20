@@ -60,7 +60,7 @@ Public Class frmForecastResult
                     If DateTime.TryParse(data.Date, dateValue) Then
                         Dim pointIndex As Integer = .Points.AddXY(dateValue, data.Demand_Load)
                         ' Set the label for the point
-                        .Points(pointIndex).Label = data.Demand_Load.ToString()
+                        '.Points(pointIndex).Label = data.Demand_Load.ToString()
                     End If
                 Next
             End With
