@@ -17,50 +17,51 @@ Public Class frmForecastResult
     End Sub
 
     Private Sub generateChart()
+        ' Ensure dataList has data
         If dataList.Count > 0 Then
+            ' Setup chart area
+            With myChart.ChartAreas(0)
+                .AxisX.Title = "Date"
+                .AxisX.MajorGrid.LineColor = Color.LightBlue
+                .AxisX.LabelStyle.Format = "yyyy-MM-dd" ' Format as date
+                .AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount ' Adjust intervals
+                .AxisX.IsLabelAutoFit = True
+                .AxisX.LabelStyle.Angle = -45 ' Rotate labels for better readability
+                .AxisY.Title = "Energy Demand Forecast"
+                .AxisY.MajorGrid.LineColor = Color.LightGray
+                .AxisY.Minimum = 0
+                .BackColor = Color.FloralWhite
+                .BackSecondaryColor = Color.White
+                .BackGradientStyle = GradientStyle.HorizontalCenter
+                .BorderColor = Color.Blue
+                .BorderDashStyle = ChartDashStyle.Solid
+                .BorderWidth = 1
+                .ShadowOffset = 2
+            End With
+
+            ' Clear existing series and add new one
             myChart.Series.Clear()
-            myChart.ChartAreas.Clear()
+            myChart.Series.Add("Energy Demand")
+            With myChart.Series("Energy Demand")
+                .ChartType = DataVisualization.Charting.SeriesChartType.Line
+                .BorderWidth = 1
+                .Color = Color.Red
+                .BorderDashStyle = ChartDashStyle.Dash
+                .MarkerStyle = DataVisualization.Charting.MarkerStyle.Circle
+                .MarkerSize = 8
+                .IsValueShownAsLabel = True ' Show value as a label
+                .LabelForeColor = Color.Black ' Customize label color
 
-            ' Add a new ChartArea
-            Dim chartArea As New ChartArea("MainArea")
-            myChart.ChartAreas.Add(chartArea)
-
-            ' Configure X-axis
-            With chartArea.AxisX
-                .LabelStyle.Format = "yyyy-MM-dd"
-                .IntervalAutoMode = IntervalAutoMode.VariableCount ' Adjust intervals dynamically
-                .IsLabelAutoFit = True
-                .LabelStyle.Angle = -45 ' Rotate labels for better readability
-                .MajorGrid.LineColor = Color.LightGray ' Customize gridlines
+                ' Add points to the series
+                For Each data As DemandData In dataList
+                    Dim dateValue As DateTime
+                    If DateTime.TryParse(data.Date, dateValue) Then
+                        Dim pointIndex As Integer = .Points.AddXY(dateValue, data.Demand_Load)
+                        ' Set the label for the point
+                        .Points(pointIndex).Label = data.Demand_Load.ToString()
+                    End If
+                Next
             End With
-
-            ' Configure Y-axis
-            With chartArea.AxisY
-                .Title = "Demand Load"
-                .MajorGrid.LineColor = Color.LightGray
-            End With
-
-            ' Create a new series
-            Dim series As New Series("Demand Load")
-            series.ChartType = SeriesChartType.Line
-            series.XValueType = ChartValueType.DateTime
-            series.MarkerStyle = MarkerStyle.Circle ' Add markers to the points
-            series.MarkerSize = 8 ' Adjust the size of the markers
-            series.IsValueShownAsLabel = True ' Enable labels for points
-            series.LabelForeColor = Color.Black ' Set label color
-
-            ' Populate the series with data
-            For Each data As DemandData In dataList
-                Dim dateValue As DateTime
-                If DateTime.TryParse(data.Date, dateValue) Then
-                    Dim pointIndex As Integer = series.Points.AddXY(dateValue, data.Demand_Load)
-                    ' Set the label for the point
-                    series.Points(pointIndex).Label = data.Demand_Load.ToString()
-                End If
-            Next
-
-            ' Add the series to the chart
-            myChart.Series.Add(series)
         End If
     End Sub
 
