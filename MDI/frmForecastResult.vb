@@ -49,7 +49,8 @@ Public Class frmForecastResult
                 .BorderDashStyle = ChartDashStyle.Dash
                 .MarkerStyle = DataVisualization.Charting.MarkerStyle.Circle
                 .MarkerSize = 8
-                .SmartLabelStyle.CalloutLineAnchorCapStyle = LineAnchorCapStyle.None;
+                .SmartLabelStyle.CalloutLineAnchorCapStyle = LineAnchorCapStyle.None
+                .SmartLabelStyle.Enabled = False
                 .IsValueShownAsLabel = True ' Show value as a label
                 .LabelForeColor = Color.Black ' Customize label color
 
