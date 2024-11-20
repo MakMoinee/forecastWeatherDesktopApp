@@ -19,15 +19,45 @@ Public Class frmForecastResult
     Private Sub generateChart()
         If dataList.Count > 0 Then
             myChart.Series.Clear()
+            myChart.ChartAreas.Clear()
 
-            ' Create a new series for the line graph
+            ' Add a new ChartArea
+            Dim chartArea As New ChartArea("MainArea")
+            myChart.ChartAreas.Add(chartArea)
+
+            ' Configure X-axis
+            With chartArea.AxisX
+                .LabelStyle.Format = "yyyy-MM-dd"
+                .IntervalAutoMode = IntervalAutoMode.VariableCount ' Adjust intervals dynamically
+                .IsLabelAutoFit = True
+                .LabelStyle.Angle = -45 ' Rotate labels for better readability
+                .MajorGrid.LineColor = Color.LightGray ' Customize gridlines
+                .ScaleView.Zoomable = True ' Allow zooming
+            End With
+
+            ' Enable scrolling and panning
+            With chartArea
+                .CursorX.IsUserEnabled = True
+                .CursorX.IsUserSelectionEnabled = True
+                .AxisX.ScrollBar.Enabled = True
+                .AxisX.ScrollBar.Size = 10
+                .AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll
+            End With
+
+            ' Configure Y-axis
+            With chartArea.AxisY
+                .Title = "Demand Load"
+                .MajorGrid.LineColor = Color.LightGray
+            End With
+
+            ' Create a new series
             Dim series As New Series("Demand Load")
             series.ChartType = SeriesChartType.Line
             series.XValueType = ChartValueType.DateTime
             series.MarkerStyle = MarkerStyle.Circle ' Add markers to the points
             series.MarkerSize = 8 ' Adjust the size of the markers
             series.IsValueShownAsLabel = True ' Enable labels for points
-            series.LabelForeColor = Color.Blue ' Customize label color
+            series.LabelForeColor = Color.Black ' Set label color
 
             ' Populate the series with data
             For Each data As DemandData In dataList
@@ -36,28 +66,14 @@ Public Class frmForecastResult
                     Dim pointIndex As Integer = series.Points.AddXY(dateValue, data.Demand_Load)
                     ' Set the label for the point
                     series.Points(pointIndex).Label = data.Demand_Load.ToString()
-                    series.Points(pointIndex).LabelForeColor = Color.Black ' Set label color
                 End If
             Next
 
             ' Add the series to the chart
             myChart.Series.Add(series)
-
-            ' Configure the X-axis as a DateTime axis with proper intervals
-            With myChart.ChartAreas(0).AxisX
-                .LabelStyle.Format = "yyyy-MM-dd"
-                .Interval = 1
-                .IntervalType = DateTimeIntervalType.Days
-                .IsLabelAutoFit = False
-                .LabelStyle.Angle = -45 ' Rotate labels for better readability
-            End With
-
-            ' Customize Y-axis
-            myChart.ChartAreas(0).AxisY.Title = "Demand Load"
-            myChart.ChartAreas(0).AxisY.MajorGrid.LineColor = Color.LightGray
-            myChart.ChartAreas(0).AxisX.MajorGrid.LineColor = Color.LightGray
         End If
     End Sub
+
 
     Private Async Sub btnCsv_Click(sender As Object, e As EventArgs) Handles btnCsv.Click
         If dataList.Count > 0 Then
