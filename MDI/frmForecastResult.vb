@@ -51,7 +51,7 @@ Public Class frmForecastResult
                 .MarkerSize = 8
                 .SmartLabelStyle.CalloutLineAnchorCapStyle = LineAnchorCapStyle.None
                 .SmartLabelStyle.Enabled = False
-                .IsValueShownAsLabel = True ' Show value as a label
+                .IsValueShownAsLabel = False ' Show value as a label
                 .LabelForeColor = Color.Black ' Customize label color
 
                 ' Add points to the series
