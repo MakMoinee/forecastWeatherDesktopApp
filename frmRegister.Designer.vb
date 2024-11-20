@@ -145,6 +145,7 @@ Partial Class frmRegister
         txtConfirmPassword.Font = New Font("Segoe UI", 14.25F)
         txtConfirmPassword.Location = New Point(520, 202)
         txtConfirmPassword.Name = "txtConfirmPassword"
+        txtConfirmPassword.PasswordChar = "*"c
         txtConfirmPassword.Size = New Size(212, 33)
         txtConfirmPassword.TabIndex = 12
         ' 
