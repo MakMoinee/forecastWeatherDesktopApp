@@ -32,16 +32,6 @@ Public Class frmForecastResult
                 .IsLabelAutoFit = True
                 .LabelStyle.Angle = -45 ' Rotate labels for better readability
                 .MajorGrid.LineColor = Color.LightGray ' Customize gridlines
-                .ScaleView.Zoomable = True ' Allow zooming
-            End With
-
-            ' Enable scrolling and panning
-            With chartArea
-                .CursorX.IsUserEnabled = True
-                .CursorX.IsUserSelectionEnabled = True
-                .AxisX.ScrollBar.Enabled = True
-                .AxisX.ScrollBar.Size = 10
-                .AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll
             End With
 
             ' Configure Y-axis
