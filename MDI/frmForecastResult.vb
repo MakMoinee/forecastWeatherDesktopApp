@@ -20,17 +20,27 @@ Public Class frmForecastResult
         If dataList.Count > 0 Then
             myChart.Series.Clear()
 
+            ' Create a new series for the line graph
             Dim series As New Series("Demand Load")
             series.ChartType = SeriesChartType.Line
             series.XValueType = ChartValueType.DateTime
+            series.MarkerStyle = MarkerStyle.Circle ' Add markers to the points
+            series.MarkerSize = 8 ' Adjust the size of the markers
+            series.IsValueShownAsLabel = True ' Enable labels for points
+            series.LabelForeColor = Color.Blue ' Customize label color
+
+            ' Populate the series with data
             For Each data As DemandData In dataList
                 Dim dateValue As DateTime
                 If DateTime.TryParse(data.Date, dateValue) Then
-                    series.Points.AddXY(dateValue, data.Demand_Load)
+                    Dim pointIndex As Integer = series.Points.AddXY(dateValue, data.Demand_Load)
+                    ' Set the label for the point
+                    series.Points(pointIndex).Label = data.Demand_Load.ToString()
+                    series.Points(pointIndex).LabelForeColor = Color.Black ' Set label color
                 End If
-
             Next
 
+            ' Add the series to the chart
             myChart.Series.Add(series)
 
             ' Configure the X-axis as a DateTime axis with proper intervals
@@ -44,6 +54,8 @@ Public Class frmForecastResult
 
             ' Customize Y-axis
             myChart.ChartAreas(0).AxisY.Title = "Demand Load"
+            myChart.ChartAreas(0).AxisY.MajorGrid.LineColor = Color.LightGray
+            myChart.ChartAreas(0).AxisX.MajorGrid.LineColor = Color.LightGray
         End If
     End Sub
 
