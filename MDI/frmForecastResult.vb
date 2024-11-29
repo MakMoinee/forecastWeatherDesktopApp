@@ -23,7 +23,7 @@ Public Class frmForecastResult
             With myChart.ChartAreas(0)
                 .AxisX.Title = "Date"
                 .AxisX.MajorGrid.LineColor = Color.LightBlue
-                .AxisX.LabelStyle.Format = "yyyy-MM-dd" ' Format as date
+                '.AxisX.LabelStyle.Format = "yyyy-MM-dd" ' Format as date
                 .AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount ' Adjust intervals
                 .AxisX.IsLabelAutoFit = True
                 .AxisX.LabelStyle.Angle = -45 ' Rotate labels for better readability
