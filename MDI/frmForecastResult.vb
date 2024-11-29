@@ -16,6 +16,7 @@ Public Class frmForecastResult
         End If
         generateChart()
     End Sub
+
     Private Sub generateChart()
         ' Ensure dataList has data
         If dataList.Count > 0 Then
@@ -25,11 +26,9 @@ Public Class frmForecastResult
                 .AxisX.MajorGrid.LineColor = Color.LightBlue
                 .AxisX.LabelStyle.Format = "yyyy-MM-dd" ' Format as date
                 .AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount ' Adjust intervals
-                .AxisX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Days ' Use days as interval
+                .AxisX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Days
                 .AxisX.IsLabelAutoFit = True
                 .AxisX.LabelStyle.Angle = -45 ' Rotate labels for better readability
-                .AxisX.Minimum = Nothing ' Auto-scale for dates
-                .AxisX.Maximum = Nothing ' Auto-scale for dates
                 .AxisY.Title = "Energy Demand Forecast"
                 .AxisY.MajorGrid.LineColor = Color.LightGray
                 .AxisY.Minimum = 0
@@ -54,17 +53,21 @@ Public Class frmForecastResult
                 .MarkerSize = 8
                 .SmartLabelStyle.CalloutLineAnchorCapStyle = LineAnchorCapStyle.None
                 .SmartLabelStyle.Enabled = False
-                .IsValueShownAsLabel = False
-                .LabelForeColor = Color.Black
+                .IsValueShownAsLabel = False ' Show value as a label
+                .LabelForeColor = Color.Black ' Customize label color
 
-                ' Add points to the series
                 For Each data As DemandData In dataList
-                    Dim inputDate As String = data.Date ' Example: "09/05/2023"
+                    Dim inputDate As String = data.Date ' Example: "9/5/2023"
                     Dim dateParts() As String = inputDate.Split("/"c) ' Split the date by "/"
 
                     If dateParts.Length = 3 Then
-                        ' Rearrange to "yyyy-MM-dd"
-                        Dim formattedDate As String = $"{dateParts(2)}-{dateParts(0)}-{dateParts(1)}"
+                        ' Parse the date components
+                        Dim month As String = dateParts(0).PadLeft(2, "0"c) ' Ensure 2 digits for month
+                        Dim day As String = dateParts(1).PadLeft(2, "0"c)   ' Ensure 2 digits for day
+                        Dim year As String = dateParts(2)
+
+                        ' Combine into "yyyy-MM-dd"
+                        Dim formattedDate As String = $"{year}-{month}-{day}"
                         Dim pointDate As DateTime
                         If DateTime.TryParseExact(formattedDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, pointDate) Then
                             ' Add point with DateTime object for X-axis
@@ -80,10 +83,10 @@ Public Class frmForecastResult
                         Console.WriteLine($"Invalid date format: {inputDate}")
                     End If
                 Next
+
             End With
         End If
     End Sub
-
 
 
     Private Async Sub btnCsv_Click(sender As Object, e As EventArgs) Handles btnCsv.Click
