@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports iTextSharp.text
@@ -15,7 +16,6 @@ Public Class frmForecastResult
         End If
         generateChart()
     End Sub
-
     Private Sub generateChart()
         ' Ensure dataList has data
         If dataList.Count > 0 Then
@@ -23,10 +23,13 @@ Public Class frmForecastResult
             With myChart.ChartAreas(0)
                 .AxisX.Title = "Date"
                 .AxisX.MajorGrid.LineColor = Color.LightBlue
-                '.AxisX.LabelStyle.Format = "yyyy-MM-dd" ' Format as date
+                .AxisX.LabelStyle.Format = "yyyy-MM-dd" ' Format as date
                 .AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount ' Adjust intervals
+                .AxisX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Days ' Use days as interval
                 .AxisX.IsLabelAutoFit = True
                 .AxisX.LabelStyle.Angle = -45 ' Rotate labels for better readability
+                .AxisX.Minimum = Nothing ' Auto-scale for dates
+                .AxisX.Maximum = Nothing ' Auto-scale for dates
                 .AxisY.Title = "Energy Demand Forecast"
                 .AxisY.MajorGrid.LineColor = Color.LightGray
                 .AxisY.Minimum = 0
@@ -51,8 +54,8 @@ Public Class frmForecastResult
                 .MarkerSize = 8
                 .SmartLabelStyle.CalloutLineAnchorCapStyle = LineAnchorCapStyle.None
                 .SmartLabelStyle.Enabled = False
-                .IsValueShownAsLabel = False ' Show value as a label
-                .LabelForeColor = Color.Black ' Customize label color
+                .IsValueShownAsLabel = False
+                .LabelForeColor = Color.Black
 
                 ' Add points to the series
                 For Each data As DemandData In dataList
@@ -62,16 +65,25 @@ Public Class frmForecastResult
                     If dateParts.Length = 3 Then
                         ' Rearrange to "yyyy-MM-dd"
                         Dim formattedDate As String = $"{dateParts(2)}-{dateParts(0)}-{dateParts(1)}"
-                        Dim pointIndex As Integer = .Points.AddXY(formattedDate, data.Demand_Load)
-                        ' Optionally set the label for the point
-                        ' .Points(pointIndex).Label = data.Demand_Load.ToString()
+                        Dim pointDate As DateTime
+                        If DateTime.TryParseExact(formattedDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, pointDate) Then
+                            ' Add point with DateTime object for X-axis
+                            Dim pointIndex As Integer = .Points.AddXY(pointDate, data.Demand_Load)
+                            ' Optionally set the label for the point
+                            ' .Points(pointIndex).Label = data.Demand_Load.ToString()
+                        Else
+                            ' Handle invalid date format
+                            Console.WriteLine($"Invalid date format: {inputDate}")
+                        End If
                     Else
                         ' Handle invalid date format
+                        Console.WriteLine($"Invalid date format: {inputDate}")
                     End If
                 Next
             End With
         End If
     End Sub
+
 
 
     Private Async Sub btnCsv_Click(sender As Object, e As EventArgs) Handles btnCsv.Click
