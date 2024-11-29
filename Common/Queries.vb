@@ -1,5 +1,6 @@
 ﻿Module Queries
-    Public ReadOnly CONNECTION_STRING As String = "server=localhost;user=root;database=forecastdb;port=3306;password=Develop@2021;"
+    Public ReadOnly CONNECTION_STRING As String = "server=localhost;user=root;database=forecastdb;port=3306;password=stephen;"
+    'Public ReadOnly CONNECTION_STRING As String = "server=localhost;user=root;database=forecastdb;port=3306;password=Develop@2021;"
     Public ReadOnly LOGIN_QUERY As String = "Select * FROM users WHERE username=@username"
     Public ReadOnly CREATE_ACCOUNT_QUERY As String = "INSERT INTO users (firstName,middleName,lastName,username,password,userType,created_at) VALUES (@firstName,@middleName,@lastName,@username,@password,@userType,NOW())"
     Public ReadOnly CREATE_HISTORY_QUERY As String = "INSERT INTO history (userID,description,input,output,date) VALUES (@id,@desc,@in,@out,NOW())"
