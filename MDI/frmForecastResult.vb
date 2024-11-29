@@ -56,8 +56,18 @@ Public Class frmForecastResult
 
                 ' Add points to the series
                 For Each data As DemandData In dataList
+                    Dim inputDate As String = data.Date ' Example: "09/05/2023"
+                    Dim dateParts() As String = inputDate.Split("/"c) ' Split the date by "/"
 
-                    Dim pointIndex As Integer = .Points.AddXY(data.Date, data.Demand_Load)
+                    If dateParts.Length = 3 Then
+                        ' Rearrange to "yyyy-MM-dd"
+                        Dim formattedDate As String = $"{dateParts(2)}-{dateParts(0)}-{dateParts(1)}"
+                        Dim pointIndex As Integer = .Points.AddXY(formattedDate, data.Demand_Load)
+                        ' Optionally set the label for the point
+                        ' .Points(pointIndex).Label = data.Demand_Load.ToString()
+                    Else
+                        ' Handle invalid date format
+                    End If
                 Next
             End With
         End If
