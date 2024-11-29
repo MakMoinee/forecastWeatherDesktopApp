@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports iTextSharp.text
@@ -57,10 +58,17 @@ Public Class frmForecastResult
                 ' Add points to the series
                 For Each data As DemandData In dataList
                     Dim dateValue As DateTime
-                    If DateTime.TryParse(data.Date, dateValue) Then
-                        Dim pointIndex As Integer = .Points.AddXY(dateValue, data.Demand_Load)
-                        ' Set the label for the point
-                        '.Points(pointIndex).Label = data.Demand_Load.ToString()
+                    Dim dateFormat As String = "MM/dd/yyyy" ' Specify the format of the input date
+                    Dim culture As CultureInfo = CultureInfo.InvariantCulture ' Use invariant culture for parsing
+
+                    If DateTime.TryParseExact(data.Date, dateFormat, culture, DateTimeStyles.None, dateValue) Then
+                        ' Format the dateValue to "yyyy-MM-dd"
+                        Dim formattedDate As String = dateValue.ToString("yyyy-MM-dd")
+                        Dim pointIndex As Integer = .Points.AddXY(formattedDate, data.Demand_Load)
+                        ' Set the label for the point (optional)
+                        ' .Points(pointIndex).Label = data.Demand_Load.ToString()
+                    Else
+                        ' Handle the case where parsing fails
                     End If
                 Next
             End With
