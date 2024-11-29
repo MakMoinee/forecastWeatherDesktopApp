@@ -175,4 +175,23 @@ Public Class frmForecastResult
             MessageBox.Show("Chart exported successfully!", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
+
+    Private Sub frmForecastResult_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If dataList.Count > 0 Then
+            dataList.Clear()
+        End If
+    End Sub
+
+    Private Sub frmForecastResult_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
+        If dgPredictions.Rows.Count > 0 Then
+            dgPredictions.Rows.Clear()
+        End If
+        If dataList.Count > 0 Then
+            For Each demandData In dataList
+                dgPredictions.Rows.Add(demandData.Date, demandData.Demand_Load)
+            Next
+            dgPredictions.ClearSelection()
+        End If
+        generateChart()
+    End Sub
 End Class

@@ -26,9 +26,6 @@ Partial Class frmManualForecast
         Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
         pbClose = New PictureBox()
         dgData = New DataGridView()
-        btnClear = New Button()
-        btnUpload = New Button()
-        Label1 = New Label()
         Column1 = New DataGridViewTextBoxColumn()
         Column4 = New DataGridViewComboBoxColumn()
         Column5 = New DataGridViewComboBoxColumn()
@@ -36,6 +33,9 @@ Partial Class frmManualForecast
         Column7 = New DataGridViewTextBoxColumn()
         Column8 = New DataGridViewTextBoxColumn()
         Column9 = New DataGridViewTextBoxColumn()
+        btnClear = New Button()
+        btnUpload = New Button()
+        Label1 = New Label()
         CType(pbClose, ComponentModel.ISupportInitialize).BeginInit()
         CType(dgData, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -70,36 +70,6 @@ Partial Class frmManualForecast
         dgData.SelectionMode = DataGridViewSelectionMode.CellSelect
         dgData.Size = New Size(738, 264)
         dgData.TabIndex = 5
-        ' 
-        ' btnClear
-        ' 
-        btnClear.FlatStyle = FlatStyle.Flat
-        btnClear.Location = New Point(12, 369)
-        btnClear.Name = "btnClear"
-        btnClear.Size = New Size(108, 43)
-        btnClear.TabIndex = 6
-        btnClear.Text = "Clear"
-        btnClear.UseVisualStyleBackColor = True
-        ' 
-        ' btnUpload
-        ' 
-        btnUpload.FlatStyle = FlatStyle.Flat
-        btnUpload.Location = New Point(168, 369)
-        btnUpload.Name = "btnUpload"
-        btnUpload.Size = New Size(108, 43)
-        btnUpload.TabIndex = 7
-        btnUpload.Text = "Upload"
-        btnUpload.UseVisualStyleBackColor = True
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(4, 12)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(543, 50)
-        Label1.TabIndex = 8
-        Label1.Text = "Please Input Your Data Below:"
         ' 
         ' Column1
         ' 
@@ -141,6 +111,36 @@ Partial Class frmManualForecast
         ' 
         Column9.HeaderText = "Windspeed"
         Column9.Name = "Column9"
+        ' 
+        ' btnClear
+        ' 
+        btnClear.FlatStyle = FlatStyle.Flat
+        btnClear.Location = New Point(12, 369)
+        btnClear.Name = "btnClear"
+        btnClear.Size = New Size(108, 43)
+        btnClear.TabIndex = 6
+        btnClear.Text = "Clear"
+        btnClear.UseVisualStyleBackColor = True
+        ' 
+        ' btnUpload
+        ' 
+        btnUpload.FlatStyle = FlatStyle.Flat
+        btnUpload.Location = New Point(168, 369)
+        btnUpload.Name = "btnUpload"
+        btnUpload.Size = New Size(108, 43)
+        btnUpload.TabIndex = 7
+        btnUpload.Text = "Upload"
+        btnUpload.UseVisualStyleBackColor = True
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(4, 12)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(543, 50)
+        Label1.TabIndex = 8
+        Label1.Text = "Please Input Your Data Below:"
         ' 
         ' frmManualForecast
         ' 

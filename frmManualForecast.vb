@@ -144,4 +144,10 @@ Public Class frmManualForecast
             Return Nothing
         End Try
     End Function
+
+    Private Sub frmManualForecast_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
+        If dgData.Rows.Count > 0 Then
+            dgData.Rows.Clear()
+        End If
+    End Sub
 End Class

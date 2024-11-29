@@ -63,6 +63,12 @@ Public Class frmMain
         frmU.Hide()
         frmHis.Hide()
         frmR.MdiParent = Me
+        If frmR.dgPredictions.Rows.Count > 0 Then
+            frmR.dgPredictions.Rows.Clear()
+        End If
+        If frmR.dataList.Count > 0 Then
+            frmR.dataList.Clear()
+        End If
         frmR.dataList = list
         frmR.Dock = DockStyle.Fill
         frmR.StartPosition = FormStartPosition.Manual
